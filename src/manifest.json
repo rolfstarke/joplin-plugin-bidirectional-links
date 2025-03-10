@@ -8,5 +8,6 @@
 	"author": "Ben Lau",
 	"homepage_url": "https://github.com/benlau/joplin-plugin-bidirectional-links",
 	"repository_url": "https://github.com/benlau/joplin-plugin-bidirectional-links",
+	"platforms": ["mobile", "desktop"],
 	"keywords": []
 }

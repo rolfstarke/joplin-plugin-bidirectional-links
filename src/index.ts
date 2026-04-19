@@ -183,6 +183,33 @@ joplin.plugins.register({
 			'./contentScript/index.js'
 		);
 
+		await joplin.contentScripts.register(
+			ContentScriptType.MarkdownItPlugin,
+			'todoStatusViewer',
+			'./markdownItPlugin/index.js'
+		);
+
+		await joplin.contentScripts.onMessage('todoStatusViewer', async (message: any) => {
+			if (message.command === 'getTodoStatus') {
+				const noteIds: string[] = message.noteIds;
+				const result: Record<string, { is_todo: boolean; todo_completed: boolean }> = {};
+				for (const id of noteIds) {
+					try {
+						const note = await joplin.data.get(['notes', id], {
+							fields: ['id', 'is_todo', 'todo_completed'],
+						});
+						result[id] = {
+							is_todo: !!note.is_todo,
+							todo_completed: !!note.todo_completed,
+						};
+					} catch (e) {
+						// Note may not exist or may be a resource link
+					}
+				}
+				return result;
+			}
+		});
+
 		await joplin.contentScripts.onMessage('bidirectionalLinks', async (message: any) => {
 			const selectedNoteIds = await joplin.workspace.selectedNoteIds();
 			const noteId = selectedNoteIds[0];

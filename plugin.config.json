@@ -1,5 +1,6 @@
 {
 	"extraScripts": [
-		"contentScript/index.ts"
+		"contentScript/index.ts",
+		"markdownItPlugin/index.ts"
 	]
 }

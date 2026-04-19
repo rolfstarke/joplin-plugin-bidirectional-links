@@ -1,0 +1,9 @@
+.todo-status-indicator {
+	font-style: normal;
+	margin-right: 2px;
+}
+
+a.todo-link.todo-completed {
+	text-decoration: line-through;
+	opacity: 0.6;
+}
